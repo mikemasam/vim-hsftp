@@ -18,6 +18,7 @@ The config file should be structured like this (amount of spaces doesn't matter)
     remote /var/www/
     confirm_download 0
     confirm_upload 0
+Note: if user is not provided, sshe key will be used by default
 
 ### Commands
     :Hdownload
