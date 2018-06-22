@@ -91,7 +91,7 @@ function! H_UploadFile()
     if has_key(conf,'user')
       let cmd = printf('expect -c "set timeout 5; spawn sftp -P %s %s@%s; expect \"*assword:\"; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['port'], conf['user'], conf['host'], conf['pass'], action)
     else
-      let cmd = printf('expect -c "set timeout 5; spawn sftp -P %s; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
+      let cmd = printf('expect -c "set timeout 5; spawn sftp %s; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
     endif
 
 
