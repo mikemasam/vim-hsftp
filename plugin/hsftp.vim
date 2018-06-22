@@ -60,9 +60,9 @@ function! H_DownloadFile()
     let action = printf('get %s %s', conf['remotepath'], conf['localpath'])
     let cmd = '' 
     if has_key(conf,'user')
-      cmd = printf('expect -c "set timeout 5; spawn sftp -P %s %s@%s; expect \"*assword:\"; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['port'], conf['user'], conf['host'], conf['pass'], action)
+      let cmd = printf('expect -c "set timeout 5; spawn sftp -P %s %s@%s; expect \"*assword:\"; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['port'], conf['user'], conf['host'], conf['pass'], action)
     else
-      cmd = printf('expect -c "set timeout 5; spawn sftp %s; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
+      let cmd = printf('expect -c "set timeout 5; spawn sftp %s; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
     endif
 
 
@@ -89,9 +89,9 @@ function! H_UploadFile()
 
     let cmd = '' 
     if has_key(conf,'user')
-      cmd = printf('expect -c "set timeout 5; spawn sftp -P %s %s@%s; expect \"*assword:\"; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['port'], conf['user'], conf['host'], conf['pass'], action)
+      let cmd = printf('expect -c "set timeout 5; spawn sftp -P %s %s@%s; expect \"*assword:\"; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['port'], conf['user'], conf['host'], conf['pass'], action)
     else
-      cmd = printf('expect -c "set timeout 5; spawn sftp -P %s; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
+      let cmd = printf('expect -c "set timeout 5; spawn sftp -P %s; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
     endif
 
 
@@ -134,9 +134,9 @@ function! H_UploadFolder()
 
 let cmd = ''
     if has_key(conf,'user')
-     cmd = printf('expect -c "set timeout 5; spawn sftp -P %s %s@%s; expect \"*assword:\"; send %s\r; %s expect -re \"100%\"; send \"exit\r\";"', conf['port'], conf['user'], conf['host'], conf['pass'], action)
+     let cmd = printf('expect -c "set timeout 5; spawn sftp -P %s %s@%s; expect \"*assword:\"; send %s\r; %s expect -re \"100%\"; send \"exit\r\";"', conf['port'], conf['user'], conf['host'], conf['pass'], action)
    else
-     cmd = printf('expect -c "set timeout 5; spawn sftp %s; send %s\r; %s expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
+     let cmd = printf('expect -c "set timeout 5; spawn sftp %s; send %s\r; %s expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
    endif
 
     execute '!' . cmd
