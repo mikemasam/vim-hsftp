@@ -59,8 +59,10 @@ function! H_DownloadFile()
   if has_key(conf, 'host')
     let action = printf('get %s %s', conf['remotepath'], conf['localpath'])
     let cmd = '' 
-    if has_key(conf,'user')
+    if has_key(conf,'pass')
       let cmd = printf('expect -c "set timeout 5; spawn sftp -P %s %s@%s; expect \"*assword:\"; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['port'], conf['user'], conf['host'], conf['pass'], action)
+    elseif has_key(conf,'user')
+      let cmd = printf('expect -c "set timeout 5; spawn sftp $s@%s; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"',conf['user'], conf['host'], action)
     else
       let cmd = printf('expect -c "set timeout 5; spawn sftp %s; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
     endif
@@ -88,8 +90,10 @@ function! H_UploadFile()
 
 
     let cmd = '' 
-    if has_key(conf,'user')
+    if has_key(conf,'pass')
       let cmd = printf('expect -c "set timeout 5; spawn sftp -P %s %s@%s; expect \"*assword:\"; send %s\r; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['port'], conf['user'], conf['host'], conf['pass'], action)
+    elseif has_key(conf,'user')
+      let cmd = printf('expect -c "set timeout 5; spawn sftp %s@%s; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"',conf['user'], conf['host'], action)
     else
       let cmd = printf('expect -c "set timeout 5; spawn sftp %s; expect \"sftp>\"; send \"%s\r\"; expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
     endif
@@ -135,6 +139,8 @@ function! H_UploadFolder()
 let cmd = ''
     if has_key(conf,'user')
      let cmd = printf('expect -c "set timeout 5; spawn sftp -P %s %s@%s; expect \"*assword:\"; send %s\r; %s expect -re \"100%\"; send \"exit\r\";"', conf['port'], conf['user'], conf['host'], conf['pass'], action)
+  elseif has_key(conf,'user')
+     let cmd = printf('expect -c "set timeout 5; spawn sftp %s@%s; %s expect -re \"100%\"; send \"exit\r\";"',conf['user'], conf['host'], action)
    else
      let cmd = printf('expect -c "set timeout 5; spawn sftp %s; %s expect -re \"100%\"; send \"exit\r\";"', conf['host'], action)
    endif
